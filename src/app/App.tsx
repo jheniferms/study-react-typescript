@@ -1,8 +1,11 @@
+import { LoggedUserProvider } from "./shared/context";
 import { Routes } from "./routes"
 
 export const App = () => {
   return (
-    <Routes/>
+    <LoggedUserProvider>
+      <Routes />
+    </LoggedUserProvider>
   );
 }
 

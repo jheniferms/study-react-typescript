@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { InputLogin } from "./components/InputLogin";
+import { ButtonLogin } from "./components/ButtonLogin";
 
 export const Login = () => {
+
     const inputPwdRef = useRef<HTMLInputElement>(null);
 
     const [email, setEmail] = useState("");
@@ -18,9 +20,8 @@ export const Login = () => {
     }, [email])
 
     const handleLogin = useCallback(() => {
-        console.log("handler", email, pwd)
-        console.log(inputPwdRef.current?.value);
-    }, [email,pwd])
+        console.log("handler", email, inputPwdRef.current?.value)
+    }, [email])
 
     return (
         <div>
@@ -31,7 +32,7 @@ export const Login = () => {
                     label="Email"
                     value={email}
                     onChange={newValue => setEmail(newValue)}
-                    onPressEnter={ () => inputPwdRef.current?.focus()}
+                    onPressEnter={() => inputPwdRef.current?.focus()}
                 />
                 <InputLogin
                     label="Senha"
@@ -41,7 +42,11 @@ export const Login = () => {
                     onChange={newValue => setPwd(newValue)}
                 />
 
-                <button type="button" onClick={handleLogin}>Login</button>
+                <ButtonLogin
+                    type="button"
+                    onClick={handleLogin}>
+                    Login
+                </ButtonLogin>
             </form>
 
         </div>
