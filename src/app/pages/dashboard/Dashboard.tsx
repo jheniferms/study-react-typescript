@@ -1,13 +1,20 @@
-import { useCallback, useState } from "react";
-
-interface ITask {
-    title: string;
-    isCompleted: boolean;
-    id: number
-}
+import { useCallback, useEffect, useState } from "react";
+import { ITask, TasksService } from "../../shared/services/api/tasks/TasksService";
+import { ApiException } from "../../shared/services/api/ApiException";
 
 export const Dashboard = () => {
     const [list, setList] = useState<ITask[]>([]);
+
+    useEffect(() => {
+         TasksService.getAll()
+         .then((result) => {
+            if (result instanceof ApiException) {
+                console.error(result.message)
+            }else {
+                setList(result);
+            }
+         });
+    },[]);
 
     const handleInput: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === "Enter") {
