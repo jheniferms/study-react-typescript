@@ -1,9 +1,14 @@
 {
-    "tasks": [
-        {
-            "id": "1",
-            "title": "a title",
-            "isCompleted": false
-        }
-    ]
+  "tasks": [
+    {
+      "id": "1",
+      "title": "tasks 1",
+      "isCompleted": false
+    },
+    {
+      "id": "f95d",
+      "title": "tasks 2",
+      "isCompleted": false
+    }
+  ]
 }

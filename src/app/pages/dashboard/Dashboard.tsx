@@ -20,17 +20,26 @@ export const Dashboard = () => {
         if (e.key === "Enter") {
             if (e.currentTarget.value.trim().length === 0) return;
             const value = e.currentTarget.value;
-            setList((old) => {
-                if (old.some((item) => item.title === value)) return old;
-                return [...old, {
-                    title: value,
-                    isCompleted: false,
-                    id:old.length
-                }]
+
+            if (list.some((item) => item.title === value)) return;
+
+            TasksService.create( {
+                title: value,
+                isCompleted: false,
+            }).then(result => {
+                if (result instanceof ApiException) {
+                    console.error(result.message);
+                }else {
+                    setList((old) => {
+                        return [...old, result]
+                    });
+                }
             });
+
+            
             e.currentTarget.value = "";
         }
-    }, []);
+    }, [list]);
 
 
     return (
