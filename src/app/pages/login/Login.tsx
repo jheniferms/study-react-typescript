@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { InputLogin } from "./components/InputLogin";
 import { ButtonLogin } from "./components/ButtonLogin";
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+    const navigate = useNavigate();
 
     const inputPwdRef = useRef<HTMLInputElement>(null);
 
@@ -20,7 +22,8 @@ export const Login = () => {
     }, [email])
 
     const handleLogin = useCallback(() => {
-        console.log("handler", email, inputPwdRef.current?.value)
+        console.log("handler", email, inputPwdRef.current?.value);
+        navigate("/home");
     }, [email])
 
     return (

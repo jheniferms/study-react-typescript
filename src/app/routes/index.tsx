@@ -7,7 +7,7 @@ export const Routes = () => {
         <Switch>
             <Route path="/home" element={<Dashboard/>}/>
             <Route path="/login" element={<Login/>}/>
-            <Route path="/*" element={<Navigate to="/home"/>}/>
+            <Route path="/*" element={<Navigate to="/login"/>}/>
         </Switch>
     </BrowserRouter>
  )   
