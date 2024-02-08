@@ -62,6 +62,18 @@ export const Dashboard = () => {
         });
     }, [list]);
 
+    const handleDelete = useCallback((id: string) => {
+        TasksService.deleteById(id).then(result => {
+            if (result instanceof ApiException) {
+                console.error(result.message)
+            } else {
+                setList(old => {
+                    return old.filter(oldItem => oldItem.id !== id)
+                })
+            }
+        });
+    }, []);
+
     return (
         <div>
             <p>List</p>
@@ -75,6 +87,8 @@ export const Dashboard = () => {
                     return <li key={item.id}>
                         <input type="checkbox" onChange={() => handleToggleComplete(item.id)} checked={item.isCompleted} />
                         {item.title}
+
+                        <button onClick={() => handleDelete(item.id)}>Delete</button>
                     </li>;
 
                 })}
