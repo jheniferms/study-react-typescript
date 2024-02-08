@@ -1,16 +1,56 @@
-import { Link } from "react-router-dom"
-import { useLoggedUser } from "../../shared/hooks";
+import { useCallback, useState } from "react";
+
+interface ITask {
+    title: string;
+    isCompleted: boolean;
+    id: number
+}
 
 export const Dashboard = () => {
-    const { userName, logout } = useLoggedUser();
+    const [list, setList] = useState<ITask[]>([]);
+
+    const handleInput: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+        if (e.key === "Enter") {
+            if (e.currentTarget.value.trim().length === 0) return;
+            const value = e.currentTarget.value;
+            setList((old) => {
+                if (old.some((item) => item.title === value)) return old;
+                return [...old, {
+                    title: value,
+                    isCompleted: false,
+                    id:old.length
+                }]
+            });
+            e.currentTarget.value = "";
+        }
+    }, []);
+
 
     return (
         <div>
-            <p>Dashboard</p>
-            <p>Logged user {userName}</p>
+            <p>List</p>
 
-            <button onClick={logout}>Logout</button>
-            <Link to="/login">Login</Link>
+            <input onKeyDown={handleInput} />
+
+            <p>count items: {list.filter(item => item.isCompleted).length}</p>
+
+            <ul>
+                {list.map((item) => {
+                    return <li key={item.id}>
+                        <input type="checkbox" onChange={() => {
+                            setList(old => {
+                                return old.map((oldItem) => {
+                                    const isSelected = item.title === oldItem.title ? !oldItem.isCompleted : oldItem.isCompleted;
+                                    return {
+                                        ...oldItem, isSelected
+                                    }
+                                })
+                            })
+                        }} checked={item.isCompleted} />
+                        {item.title}
+                    </li>;
+                })}
+            </ul>
         </div>
     )
 }
