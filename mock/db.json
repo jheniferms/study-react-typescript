@@ -9,6 +9,11 @@
       "id": "f95d",
       "title": "tasks 2",
       "isCompleted": false
+    },
+    {
+      "id": "2b0f",
+      "title": "task 3",
+      "isCompleted": false
     }
   ]
 }

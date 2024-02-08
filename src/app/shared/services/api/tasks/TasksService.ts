@@ -4,7 +4,7 @@ import { ApiException } from "../ApiException";
 export interface ITask {
     title: string;
     isCompleted: boolean;
-    id: number
+    id: string
 
 }
 const getAll = async (): Promise<ITask[] | ApiException> => {
@@ -17,7 +17,7 @@ const getAll = async (): Promise<ITask[] | ApiException> => {
     }
 };
 
-const get = async (id: number): Promise<ITask | ApiException> => {
+const get = async (id: string): Promise<ITask | ApiException> => {
     try {
         const { data } = await API().get(`/tasks/${id}`);
         return data
@@ -27,7 +27,7 @@ const get = async (id: number): Promise<ITask | ApiException> => {
     }
 };
 
-const deleteById = async (id: number): Promise<undefined | ApiException> => {
+const deleteById = async (id: string): Promise<undefined | ApiException> => {
     try {
        await API().delete(`/tasks/${id}`);
         return undefined;
@@ -47,7 +47,7 @@ const create = async (request: Omit<ITask, "id">): Promise<ITask | ApiException>
     }
 };
 
-const update = async (id: number, request: ITask): Promise<ITask | ApiException> => {
+const update = async (id: string, request: ITask): Promise<ITask | ApiException> => {
     try {
         const { data } = await API().put(`/tasks/${id}`, request);
         return data
